@@ -2,7 +2,6 @@ import serial
 import serial.tools.list_ports
 from music import AudioBeatAnalyzer
 from worker import LEDWorker
-import sounddevice as sd
 
 class LEDSerialInteface:
     def __init__(self, baudrate=115200):
@@ -28,7 +27,6 @@ class LEDSerialInteface:
             except Exception as e:
                 pass
 
-#DEVICE_NAME = "Microphone Array (Intel® Smart Sound Technology for Digital Microphones), Windows WASAPI"
 DEVICE_NAME = "CABLE Output (VB-Audio Virtual Cable), Windows WASAPI"
 SAMPLE_RATE = 48000
 BLOCK_SIZE = 1024
