@@ -28,6 +28,8 @@ class AudioBeatAnalyzer:
             dtype='float32'
         )
 
+        self.last_color = [0, 0, 0]
+
     def _audio_callback(self, indata, frames, time, status):
         if status:
             print("Audio stream status:", status)
@@ -47,7 +49,7 @@ class AudioBeatAnalyzer:
 
         if not self.beat_active:
             intensity = 1 / ((now - self.last_beat_time) * 40)
-        if intensity < 0.1:
+        if intensity < 0.05:
             intensity = 0
 
         # Pitch / Hue
@@ -55,7 +57,14 @@ class AudioBeatAnalyzer:
         hue = min(max((pitch - 50) / (2000 - 50), 0), 1) if pitch > 0 else 0
         hue = (hue * 3) % 1
 
+        # Smoothing
+        alpha = 0.5
         r, g, b = colorsys.hsv_to_rgb(hue, 1.0, intensity)
+        r = alpha * r + (1 - alpha) * self.last_color[0]
+        g = alpha * g + (1 - alpha) * self.last_color[1]
+        b = alpha * b + (1 - alpha) * self.last_color[2]
+
+        self.last_color = [r, g, b]
 
         self.worker.schedule([int(r * 255), int(g * 255), int(b * 255)], 0)
 
