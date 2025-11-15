@@ -1,8 +1,8 @@
 import serial
 import serial.tools.list_ports
 from music import AudioBeatAnalyzer
-from worker import LEDWorker
 from web_server import start_server_in_thread
+import threading
 
 class LEDSerialInteface:
     def __init__(self, baudrate=115200):
@@ -32,14 +32,37 @@ DEVICE_NAME = "CABLE Output (VB-Audio Virtual Cable), Windows WASAPI"
 SAMPLE_RATE = 48000
 BLOCK_SIZE = 1024
 
+music_enabled = True
+music_lock = threading.Lock()
+
+def set_music_enabled(state: bool):
+    global music_enabled
+    with music_lock:
+        music_enabled = state
+
+def get_music_enabled():
+    with music_lock:
+        return music_enabled
+
+def music_callback(r, g, b):
+    if get_music_enabled():
+        interface.send_rgb(r, g, b)
+
+def web_callback(r, g, b):
+    interface.send_rgb(r, g, b)
+
 if __name__ == "__main__":
     interface = LEDSerialInteface()
-    worker = LEDWorker(interface)
-    analyzer = AudioBeatAnalyzer(DEVICE_NAME, callback=interface.send_rgb, worker=worker)
+    analyzer = AudioBeatAnalyzer(DEVICE_NAME, callback=music_callback)
     analyzer.start()
 
-    # Web server
-    start_server_in_thread(interface, port=5000, static_dir='static')
+    start_server_in_thread(
+        interface,
+        port=5000,
+        static_dir='static',
+        music_toggle_callback=set_music_enabled,
+        rgb_callback=web_callback
+    )
     print("Web server running at http://localhost:5000")
 
     try:

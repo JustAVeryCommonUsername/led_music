@@ -5,10 +5,9 @@ import aubio
 import time as tm
 
 class AudioBeatAnalyzer:
-    def __init__(self, device_name, callback, worker, samplerate=48000, block_size=1024):
+    def __init__(self, device_name, callback, samplerate=48000, block_size=1024):
         self.device_name = device_name
         self.callback = callback
-        self.worker = worker
         self.samplerate = samplerate
         self.block_size = block_size
 
@@ -66,7 +65,8 @@ class AudioBeatAnalyzer:
 
         self.last_color = [r, g, b]
 
-        self.worker.schedule([int(r * 255), int(g * 255), int(b * 255)], 0)
+        # Directly call the callback with the color
+        self.callback(int(r * 255), int(g * 255), int(b * 255))
 
     def start(self):
         self.stream.start()
