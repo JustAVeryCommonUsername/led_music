@@ -4,7 +4,7 @@
     --radius-lg: 18px;
     --radius-md: 12px;
     --max-width: 420px;
-    --palette-height: 420px;
+    --palette-height: 400px;
     --hue-height: 40px;
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -147,15 +147,8 @@ body {
 
 @media (max-width: 520px) {
     :root {
-        --max-width: 320px;
+        --max-width: 400px;
         --hue-height: 32px;
-        --palette-height: 320px;
-    }
-}
-@media (max-width: 400px) {
-    :root {
-        --max-width: 240px;
-        --hue-height: 26px;
-        --palette-height: 200px;
+        --palette-height: 300px;
     }
 }
