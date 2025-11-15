@@ -1,0 +1,184 @@
+:root {
+    --bg-gradient: linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+    --panel-bg: rgba(30,30,46,0.85);
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 10px 30px rgba(0,0,0,0.55);
+    --shadow-md: 0 4px 14px rgba(0,0,0,0.28);
+    --max-width: 420px;
+    --palette-height: 500px;
+    --hue-height: 50px;
+    --gap: 16px;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: var(--bg-gradient);
+    font-family: var(--font-family);
+    color: #e0e0e0;
+    -webkit-font-smoothing: antialiased;
+    padding: 30px 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 640px;
+    padding: 32px 34px 52px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    justify-content: center;
+    min-height: 900px;
+}
+
+.color-picker-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.color-picker-bound {
+    width: 100%;
+    max-width: var(--max-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap);
+}
+
+.pcr-app {
+    position: static !important;
+    width: 100% !important;
+    max-width: var(--max-width) !important;
+    margin: 0 auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: var(--gap);
+    align-items: center;
+}
+
+.pcr-button {
+    display: none !important;
+}
+
+.pcr-selection {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--gap) !important;
+    align-items: center !important;
+}
+
+.pcr-color-palette {
+    width: 100% !important;
+    max-width: var(--max-width) !important;
+    aspect-ratio: unset !important;
+    height: var(--palette-height) !important;
+    max-height: var(--palette-height) !important;
+    min-height: var(--palette-height) !important;
+    border-radius: var(--radius-lg) !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    outline: 1px solid rgba(255,255,255,0.08);
+}
+
+.pcr-color-palette .pcr-saturation {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.pcr-color-chooser {
+    width: 100% !important;
+    max-width: var(--max-width) !important;
+    height: var(--hue-height) !important;
+    min-height: var(--hue-height) !important;
+    max-height: var(--hue-height) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-md);
+    outline: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.pcr-color-chooser .pcr-slider {
+    height: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.pcr-interaction {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 10px;
+}
+
+.pcr-color-palette:focus,
+.pcr-color-chooser:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.pcr-app ::-webkit-scrollbar {
+    width: 10px;
+}
+.pcr-app ::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.06);
+}
+.pcr-app ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.22);
+    border-radius: var(--radius-sm);
+}
+.pcr-app ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.30);
+}
+
+@media (max-width: 520px) {
+    :root {
+        --max-width: 360px;
+        --hue-height: 42px;
+        --gap: 14px;
+        --palette-height: 500px;
+    }
+}
+@media (max-width: 400px) {
+    :root {
+        --max-width: 300px;
+        --hue-height: 38px;
+        --palette-height: 400px;
+    }
+    .pcr-color-palette {
+        height: var(--palette-height) !important;
+        max-height: var(--palette-height) !important;
+    }
+}
+@media (max-width: 320px) {
+    :root {
+        --max-width: 260px;
+        --hue-height: 34px;
+        --palette-height: 320px;
+    }
+    .pcr-color-palette {
+        height: var(--palette-height) !important;
+        max-height: var(--palette-height) !important;
+    }
+}
+
+.hidden { display: none !important; }

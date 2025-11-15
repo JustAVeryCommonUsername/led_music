@@ -58,7 +58,7 @@ class AudioBeatAnalyzer:
         hue = (hue * 3) % 1
 
         # Smoothing
-        alpha = 0.5
+        alpha = 0.3
         r, g, b = colorsys.hsv_to_rgb(hue, 1.0, intensity)
         r = alpha * r + (1 - alpha) * self.last_color[0]
         g = alpha * g + (1 - alpha) * self.last_color[1]

@@ -2,6 +2,7 @@ import serial
 import serial.tools.list_ports
 from music import AudioBeatAnalyzer
 from worker import LEDWorker
+from web_server import start_server_in_thread
 
 class LEDSerialInteface:
     def __init__(self, baudrate=115200):
@@ -36,6 +37,10 @@ if __name__ == "__main__":
     worker = LEDWorker(interface)
     analyzer = AudioBeatAnalyzer(DEVICE_NAME, callback=interface.send_rgb, worker=worker)
     analyzer.start()
+
+    # Web server
+    start_server_in_thread(interface, port=5000, static_dir='static')
+    print("Web server running at http://localhost:5000")
 
     try:
         while True:
