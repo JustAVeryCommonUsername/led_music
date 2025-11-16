@@ -62,3 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sendWS(new Uint8Array([0x02, musicEnabled ? 1 : 0]));
     });
 });
+
+// Prevent timeout
+setInterval(() => {
+    socket.send('keepalive');
+}, 25000);
