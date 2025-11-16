@@ -1,7 +1,7 @@
 let currentColor = '#ff0000';
 let pickr;
 let ws;
-let musicEnabled = true; // music mode state
+let musicEnabled = true;
 
 function sendWS(data) {
     if (ws && ws.readyState === WebSocket.OPEN) {
@@ -65,5 +65,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Prevent timeout
 setInterval(() => {
-    socket.send('keepalive');
+    ws.send('keepalive');
 }, 25000);
